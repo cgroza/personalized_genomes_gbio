@@ -121,7 +121,7 @@ process linearPathsRef {
 
     script:
     """
-     (seq 1 22; echo X) | parallel -j 3 graph_peak_caller find_linear_path -g graphs/chr{}.nobg graphs/chr{}.json chr{} graphs/chr{}_linear_pathv2.interval
+     (seq 1 22; echo X; echo Y) | parallel -j 3 graph_peak_caller find_linear_path -g graphs/chr{}.nobg graphs/chr{}.json chr{} graphs/chr{}_linear_pathv2.interval
 """
 }
 
@@ -301,13 +301,13 @@ if(params.peak_call) {
         memory '120 GB'
         time '24h'
 
-        publishDir "$params.outDir/peaks", pattern: "ref_${name}_peaks.narrowPeak", mode: "copy"
+        publishDir "$params.outDir/peaks", pattern: "${name}_ref_peaks.narrowPeak", mode: "copy"
 
         input:
         set val(name), file("json"), val(control_name), file("control_json"), file("graphs") from ref_treatment_json_ch.phase(ref_control_json_ch){it.get(0).split('_')[0]}.combine(ref_peak_linear_ch).map{ it.flatten()}.view()
 
         output:
-        set val(name), file("ref_${name}_peaks.narrowPeak") into ref_peaks_ch
+        set val(name), file("${name}_ref_peaks.narrowPeak") into ref_peaks_ch
 
         script:
         """
