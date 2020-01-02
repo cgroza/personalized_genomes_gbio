@@ -41,7 +41,8 @@ Channel.fromPath("${params.control_fastq_dir}/*").into{control_fastq_ch; ref_con
 Channel.fromPath(
     ["${params.graph}/${params.graph_name}.xg",
      "${params.graph}/${params.graph_name}.gcsa",
-     "${params.graph}/${params.graph_name}.gcsa.lcp"]).into{ref_index_treatment_ch; ref_index_control_ch, param_index_treatment_ch; param_index_control_ch}
+     "${params.graph}/${params.graph_name}.gcsa.lcp"]).into{ref_index_treatment_ch; ref_index_control_ch;
+                                                            param_index_treatment_ch; param_index_control_ch}
 
 
 
