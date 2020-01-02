@@ -8,6 +8,7 @@ params.graph = "ref/"
 // directory containing the *.vg files for each chromosome
 params.graph_name = "hg19"
 params.align_params = ""
+params.align_name = "default"
 
 // data parameters
 params.genome_size = 3100000000
@@ -290,7 +291,7 @@ if(params.peak_call) {
 if(params.altered){
     process alteredPeaks {
         cpus = 1
-        publishDir "$params.outDir/peaks", mode: "copy"
+        publishDir "$params.outDir/peaks_${params.align_name}", mode: "copy"
         input:
         set val(param_name), file(param_peaks), val(ref_name), file(ref_peaks) from param_peaks_ch.phase(ref_peaks_ch){it.get(0).split('_')[0]}.map{it.flatten()}
         output:
