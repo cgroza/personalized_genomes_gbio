@@ -118,7 +118,7 @@ process alignControlParam {
     time = "${params.time}"
 
     input:
-    set file(xg), file(gbwt), file(gcsa), file(gcsa_lcp), file(fastq), file("graphs") from param_index_control_ch.collect().combine(control_fastq_ch).combine(control_linear_ch).view()
+    set file(xg), file(gcsa), file(gcsa_lcp), file(fastq), file("graphs") from param_index_control_ch.collect().combine(control_fastq_ch).combine(control_linear_ch).view()
     output:
     set val(name), file("control_json") into control_json_ch
 
@@ -126,7 +126,7 @@ process alignControlParam {
     name = fastq.getSimpleName()
     """
     mkdir control_gam
-    vg map ${params.align_params} $vg_flag -f $fastq -1 $gbwt -x $xg -g $gcsa -t 40 -u 1 -m 1 > "control_gam/${name}_param.gam"
+    vg map ${params.align_params} $vg_flag -f $fastq -x $xg -g $gcsa -t 40 -u 1 -m 1 > "control_gam/${name}_param.gam"
 
     mkdir control_json
     vg view -aj control_gam/${name}_param.gam > control_json/${name}_param.json
@@ -167,7 +167,7 @@ process alignSampleParam {
     time = "${params.time}"
 
     input:
-    set file(xg), file(gbwt), file(gcsa), file(gcsa_lcp), file(fastq), file("graphs") from param_index_treatment_ch.collect().combine(fastq_ch).combine(treatment_linear_ch).view()
+    set file(xg), file(gcsa), file(gcsa_lcp), file(fastq), file("graphs") from param_index_treatment_ch.collect().combine(fastq_ch).combine(treatment_linear_ch).view()
 
     output:
     set val(name), file("json") into treatment_json_ch
@@ -178,7 +178,7 @@ process alignSampleParam {
 
     """
     mkdir gam
-    vg map ${params.align_params} $vg_flag -f $fastq -1 $gbwt -x $xg -g $gcsa -t 40 -u 1 -m 1 > gam/${name}_param.gam
+    vg map ${params.align_params} $vg_flag -f $fastq -x $xg -g $gcsa -t 40 -u 1 -m 1 > gam/${name}_param.gam
 
     mkdir json
     vg view -aj gam/${name}_param.gam > json/${name}_param.json
