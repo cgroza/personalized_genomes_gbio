@@ -16,7 +16,7 @@ params.altered = true
 
 params.outDir = workflow.launchDir
 
-chromosomes = "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY"
+params.chromosomes = "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY"
 
 def design_file = new File(params.design_file)
 def design = [:]
@@ -156,7 +156,7 @@ process alignControlRef {
 
     mkdir control_json
     vg view -aj control_gam/${name}_ref.gam > control_json/${name}_ref.json
-    graph_peak_caller split_vg_json_reads_into_chromosomes ${chromosomes} control_json/${name}_ref.json graphs/
+    graph_peak_caller split_vg_json_reads_into_chromosomes ${params.chromosomes} control_json/${name}_ref.json graphs/
     rm control_json/${name}_ref.json
 """
 }
@@ -180,7 +180,7 @@ process alignControlPop {
 
     mkdir control_json
     vg view -aj control_gam/${name}_pop.gam > control_json/${name}_pop.json
-    graph_peak_caller split_vg_json_reads_into_chromosomes ${chromosomes} control_json/${name}_pop.json graphs/
+    graph_peak_caller split_vg_json_reads_into_chromosomes ${params.chromosomes} control_json/${name}_pop.json graphs/
     rm control_json/${name}_pop.json
 """
 }
@@ -205,7 +205,7 @@ process alignSampleRef {
 
     mkdir json
     vg view -aj gam/${name}_ref.gam > json/${name}_ref.json
-    graph_peak_caller split_vg_json_reads_into_chromosomes ${chromosomes} json/${name}_ref.json graphs/
+    graph_peak_caller split_vg_json_reads_into_chromosomes ${params.chromosomes} json/${name}_ref.json graphs/
     rm json/${name}_ref.json
 """
 }
@@ -232,7 +232,7 @@ process alignSamplePop {
 
     mkdir json
     vg view -aj gam/${name}_pop.gam > json/${name}_pop.json
-    graph_peak_caller split_vg_json_reads_into_chromosomes ${chromosomes} json/${name}_pop.json graphs/
+    graph_peak_caller split_vg_json_reads_into_chromosomes ${params.chromosomes} json/${name}_pop.json graphs/
     rm json/${name}_pop.json
 """
 }
