@@ -33,5 +33,5 @@ Creates a liftover file between two genomes. Unfortunately, this perl code is no
 Perl pipeline for calling personalized peaks in modified reference genomes. It consists of bash and perl code that is not readily portable.
 
 # License
-This code is available under GPL-3.0
+This code is available under GPL-3.0  
 Details available at: https://opensource.org/licenses/GPL-3.0
